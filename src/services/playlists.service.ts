@@ -1,5 +1,5 @@
-import { PayloadService } from './payload.service'
-import type { PlaylistRequest, PlaylistResponse } from '../interfaces/playlist.interface'
+import { PayloadService } from './payload.service.js'
+import type { PlaylistRequest, PlaylistResponse } from '../interfaces/playlist.interface.js'
 
 export class PlaylistsService extends PayloadService {
   constructor() {

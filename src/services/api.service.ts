@@ -1,10 +1,8 @@
-import got from 'got-cjs'
-import { getConfig } from '../configs'
-import type { Got } from 'got-cjs'
-import type { Config } from '../interfaces/config.interface'
+import { getConfig } from '../configs/index.js'
+import { HttpExceptionError } from '../exceptions/http.exception.js'
+import type { Config } from '../configs/index.js'
 
 export class ApiService {
-  private httpClient: Got
   private baseURL: Config['baseURL']
   protected endpoints: Config['endpoint']
 
@@ -12,37 +10,38 @@ export class ApiService {
     const { baseURL, endpoint } = getConfig()
     this.baseURL = baseURL
     this.endpoints = endpoint
-
-    this.httpClient = got.extend({
-      prefixUrl: this.baseURL,
-      searchParams: new URLSearchParams([
-        ['_format', 'json'],
-        ['_marker', '0'],
-        ['ctx', 'web6dot0'],
-      ]),
-      responseType: 'json',
-      headers: {
-        cookie: 'L=english; gdpr_acceptance=true; DL=english',
-      },
-      hooks: {
-        beforeRequest: [
-          (options) => {
-            // set default language in cookie
-            const languageHeader = new URLSearchParams(options.searchParams as string).get('language') || 'english'
-
-            options.headers = {
-              cookie: `L=${encodeURIComponent(languageHeader)}; gdpr_acceptance=true; DL=english`,
-            }
-          },
-        ],
-      },
-    })
   }
 
-  protected http<T>(url: string, isVersion4: boolean, query?: Record<string, string | number>): Promise<T> {
-    const v4 = isVersion4 ? { api_version: 4 } : undefined
-    const queryParams = { ...v4, ...query }
+  protected async http<T>(url: string, isVersion4: boolean, query?: Record<string, string | number | undefined>): Promise<T> {
+    const params = new URLSearchParams([
+      ['_format', 'json'],
+      ['_marker', '0'],
+      ['ctx', 'web6dot0'],
+      ['__call', url],
+    ])
+    if (isVersion4) params.set('api_version', '4')
+    for (const [k, v] of Object.entries(query ?? {})) {
+      if (v !== undefined && v !== null) params.set(k, String(v))
+    }
 
-    return this.httpClient<T>({ searchParams: { __call: url, ...queryParams } }).json()
+    const language = (query?.language as string) || 'english'
+
+    const res = await fetch(`${this.baseURL}?${params.toString()}`, {
+      headers: {
+        cookie: `L=${encodeURIComponent(language)}; gdpr_acceptance=true; DL=english`,
+        'user-agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36',
+        accept: 'application/json, text/plain, */*',
+      },
+    })
+
+    const text = await res.text()
+    if (!res.ok) throw new HttpExceptionError(503, `upstream returned ${res.status}: ${text.slice(0, 120)}`)
+
+    try {
+      return JSON.parse(text) as T
+    } catch {
+      throw new HttpExceptionError(503, `upstream returned non-JSON response: ${text.slice(0, 120)}`)
+    }
   }
 }

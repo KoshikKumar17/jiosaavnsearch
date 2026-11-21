@@ -1,11 +1,11 @@
-import { PayloadService } from './payload.service'
-import type { SongRequest, SongResponse } from '../interfaces/song.interface'
+import { PayloadService } from './payload.service.js'
+import type { SongRequest, SongResponse } from '../interfaces/song.interface.js'
 import type {
   ArtistAlbumResponse,
   ArtistRequest,
   ArtistResponse,
   ArtistSongResponse,
-} from '../interfaces/artist.interface'
+} from '../interfaces/artist.interface.js'
 
 export class ArtistsService extends PayloadService {
   constructor() {

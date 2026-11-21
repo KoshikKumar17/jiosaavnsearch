@@ -1,56 +1,48 @@
-# :musical_note: JioSaavn API
+# JioSaavn API
 
-An Unofficial JioSaavn API for downloading songs in 320kbps quality for free.
+Unofficial JioSaavn API (search, songs, albums, artists, playlists, lyrics, up to 320kbps links).
+One codebase (Hono + fetch), deployable on Cloudflare Workers, Vercel, Netlify, Render or Docker.
 
-> NOTE: <https://saavn.me> is only meant to demo the API and has rate-limiting enabled to minimise bandwidth consumption. It is recommended to deploy your own instance on vercel for personal use.
+- Homepage: `/`
+- Documentation with a live request tester: `/docs`
+- Health check: `/health`
 
-## :sparkles: Features
+## Local development
 
-- :rocket: Blazing fast
-- :notes: Download High Quality Songs (320kbps).
-- :sunrise: Download High quality song/album thumbnails.
-- :mag_right: Search support for songs and albums.
-- :musical_score: Lyrics for supported songs.
-- :heart: Open-Source
-- :cloud: Lightweight and has minimal dependencies.
+```sh
+npm install
+npm run dev        # http://localhost:3000
+npm run dev:cf     # same app on the Workers runtime (wrangler)
+```
 
-## :mag_right: Usage
+## Deploy
 
-### For usage, see [Documentation](https://docs.saavn.me)
+| Platform | How |
+| --- | --- |
+| **Cloudflare** | Connect the repo as a Worker. Build command: *(empty)*. Deploy command: `npx wrangler deploy`. Or run `npm run deploy:cf`. |
+| **Vercel** | Import the repo. No build command, no framework preset. `vercel.json` routes everything to `api/index.ts`. |
+| **Netlify** | Import the repo. No build command. `netlify.toml` and `netlify/functions/api.mts` handle every path. |
+| **Render** | New Blueprint from the repo (uses `render.yaml`), or a Web Service with build `npm install` and start `npm start`. |
+| **Docker / VPS / Railway / Fly** | `docker build -t jiosaavnsearch . && docker run -p 3000:3000 jiosaavnsearch` |
 
-## :construction_worker: Local development
+## Layout
 
-### Prerequisites
+- `src/app.ts`: the whole app (routes), platform independent
+- `src/index.ts`: Cloudflare Workers entry
+- `src/node.ts`: Node server entry (Render, Docker, local)
+- `api/index.ts`: Vercel entry
+- `netlify/functions/api.mts`: Netlify entry
+- `src/pages/`: homepage and docs
 
-- NodeJS v14+
-- Vercel CLI : To install Vercel CLI globally use `npm i -g vercel`
+## Note
 
-### Run locally
+JioSaavn may block or geo-restrict requests coming from some hosting providers' IP ranges. If every
+data endpoint returns 503 ("upstream returned ..."), try another platform or region.
 
-- Clone the Repo
+Unofficial project, not affiliated with JioSaavn. MIT licensed.
 
-  ```sh
-  git clone https://github.com/sumitkolhe/jiosaavn-api
+## Credits 
 
-  cd jiosaavn-api
-  ```
+This is a lightweight fork/clone of [jiosaavn-api](https://github.com/sumitkolhe/jiosaavn-api) by [@sumitkolhe](https://github.com/sumitkolhe).
 
-- Install the dependencies
-
-  ```sh
-  npm install
-  ```
-
-- Start development server
-
-  ```sh
-  npm start
-  ```
-
-## ☁️ Host your own instance
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/sumitkolhe/jiosaavn-api)
-
-## 📜 License
-
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the [LICENSE](LICENSE) file for details.
+---

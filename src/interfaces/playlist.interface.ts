@@ -1,5 +1,5 @@
-import type { DownloadLink } from './image.interface'
-import type { SongRequest, SongResponse } from './song.interface'
+import type { DownloadLink } from './image.interface.js'
+import type { SongRequest, SongResponse } from './song.interface.js'
 
 export interface PlaylistSearchRequest {
   total: number

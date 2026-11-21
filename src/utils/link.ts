@@ -1,4 +1,6 @@
-import { cipher, util } from 'node-forge'
+import forge from 'node-forge'
+
+const { cipher, util } = forge
 
 // create download links for different bitrates
 export const createDownloadLinks = (encryptedMediaUrl: string) => {

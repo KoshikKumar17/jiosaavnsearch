@@ -1,4 +1,4 @@
-import type { DownloadLink } from './image.interface'
+import type { DownloadLink } from './image.interface.js'
 
 export interface AllSearchRequest {
   albums: {

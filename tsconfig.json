@@ -1,28 +1,17 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "target": "ESNext",
-    "lib": ["ESNext", "esnext.asynciterable"],
-    "typeRoots": ["node_modules/@types"],
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM"],
+    "types": ["node"],
     "strict": true,
     "strictPropertyInitialization": false,
-    "pretty": true,
-    "sourceMap": false,
-    "declaration": true,
-    "outDir": "./public",
-    "allowJs": true,
-    "noEmit": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "importHelpers": true,
+    "skipLibCheck": true,
+    "noEmit": true,
     "baseUrl": "src"
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "api/**/*.ts", "netlify/**/*.mts"]
 }

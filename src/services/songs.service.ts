@@ -1,6 +1,6 @@
-import { HttpExceptionError } from '../exceptions/http.exception'
-import { PayloadService } from './payload.service'
-import type { SongRequest, SongResponse } from '../interfaces/song.interface'
+import { HttpExceptionError } from '../exceptions/http.exception.js'
+import { PayloadService } from './payload.service.js'
+import type { SongRequest, SongResponse } from '../interfaces/song.interface.js'
 
 export class SongsService extends PayloadService {
   constructor() {

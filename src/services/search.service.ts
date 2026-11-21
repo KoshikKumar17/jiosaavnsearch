@@ -1,9 +1,9 @@
-import { PayloadService } from '../services/payload.service'
-import type { AllSearchRequest } from '../interfaces/search.interface'
-import type { ArtistSearchRequest } from '../interfaces/artist.interface'
-import type { PlaylistSearchRequest } from '../interfaces/playlist.interface'
-import type { AlbumSearchRequest } from '../interfaces/album.interface'
-import type { SongSearchRequest, SongSearchResponse } from '../interfaces/song.interface'
+import { PayloadService } from '../services/payload.service.js'
+import type { AllSearchRequest } from '../interfaces/search.interface.js'
+import type { ArtistSearchRequest } from '../interfaces/artist.interface.js'
+import type { PlaylistSearchRequest } from '../interfaces/playlist.interface.js'
+import type { AlbumSearchRequest } from '../interfaces/album.interface.js'
+import type { SongSearchRequest, SongSearchResponse } from '../interfaces/song.interface.js'
 
 export class SearchService extends PayloadService {
   constructor() {

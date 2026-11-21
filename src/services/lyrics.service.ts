@@ -1,6 +1,6 @@
-import { HttpExceptionError } from '../exceptions/http.exception'
-import { PayloadService } from '../services/payload.service'
-import type { LyricsRequest } from '../interfaces/lyrics.interface'
+import { HttpExceptionError } from '../exceptions/http.exception.js'
+import { PayloadService } from '../services/payload.service.js'
+import type { LyricsRequest } from '../interfaces/lyrics.interface.js'
 
 export class LyricsService extends PayloadService {
   public songLyrics = async (songId: string) => {

@@ -1,5 +1,5 @@
-import { PayloadService } from './payload.service'
-import type { ModulesRequest, ModulesResponse } from '../interfaces/modules.interface'
+import { PayloadService } from './payload.service.js'
+import type { ModulesRequest, ModulesResponse } from '../interfaces/modules.interface.js'
 
 export class ModulesService extends PayloadService {
   constructor() {

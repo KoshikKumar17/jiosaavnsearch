@@ -1,8 +1,8 @@
-import { createDownloadLinks, createImageLinks, sanitizeLyrics } from '../utils/link'
-import { ApiService } from '../services/api.service'
-import type { ModulesRequest, ModulesResponse } from '../interfaces/modules.interface'
-import type { LyricsRequest, LyricsResponse } from '../interfaces/lyrics.interface'
-import type { AllSearchRequest, AllSearchResponse } from '../interfaces/search.interface'
+import { createDownloadLinks, createImageLinks, sanitizeLyrics } from '../utils/link.js'
+import { ApiService } from '../services/api.service.js'
+import type { ModulesRequest, ModulesResponse } from '../interfaces/modules.interface.js'
+import type { LyricsRequest, LyricsResponse } from '../interfaces/lyrics.interface.js'
+import type { AllSearchRequest, AllSearchResponse } from '../interfaces/search.interface.js'
 import type {
   Artist,
   ArtistAlbumRequest,
@@ -13,21 +13,21 @@ import type {
   ArtistSearchResponse,
   ArtistSongRequest,
   ArtistSongResponse,
-} from '../interfaces/artist.interface'
+} from '../interfaces/artist.interface.js'
 import type {
   PlaylistRequest,
   PlaylistResponse,
   PlaylistSearchRequest,
   PlaylistSearchResponse,
-} from '../interfaces/playlist.interface'
+} from '../interfaces/playlist.interface.js'
 import type {
   AlbumArtistResponse,
   AlbumRequest,
   AlbumResponse,
   AlbumSearchRequest,
   AlbumSearchResponse,
-} from '../interfaces/album.interface'
-import type { SongRequest, SongResponse, SongSearchRequest, SongSearchResponse } from '../interfaces/song.interface'
+} from '../interfaces/album.interface.js'
+import type { SongRequest, SongResponse, SongSearchRequest, SongSearchResponse } from '../interfaces/song.interface.js'
 
 export class PayloadService extends ApiService {
   private mapArtists = (artists: Artist[]): AlbumArtistResponse[] => {
